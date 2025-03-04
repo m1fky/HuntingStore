@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  sqlite:
+    image: keinos/sqlite3
+    container_name: sqlite_db
+    volumes:
+      - ./data:/data
+    working_dir: /data
+    command: ["tail", "-f", "/dev/null"]
+    restart: unless-stopped
