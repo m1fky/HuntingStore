@@ -7,3 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
                                      address TEXT,
                                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS roles (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       name TEXT UNIQUE NOT NULL
+);
