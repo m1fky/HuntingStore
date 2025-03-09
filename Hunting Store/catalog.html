@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./styles/catalogStyle.css" rel="stylesheet">
+    <title>Каталог товаров - Hunting Store</title>
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between">
+            <h1>Каталог товаров</h1>
+            <nav>
+                <a href="index.html" class="text-white me-3">Главная</a>
+                <a href="#" class="text-white">Корзина</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="container mt-4">
+        <h2>Выберите категорию</h2>
+        <div class="row">
+            <div class="col-md-3"><button class="btn btn-primary w-100" onclick="filterCategory('Оружие')">Оружие</button></div>
+            <div class="col-md-3"><button class="btn btn-primary w-100" onclick="filterCategory('Одежда')">Одежда</button></div>
+            <div class="col-md-3"><button class="btn btn-primary w-100" onclick="filterCategory('Обувь')">Обувь</button></div>
+            <div class="col-md-3"><button class="btn btn-primary w-100" onclick="filterCategory('Электроника')">Электроника</button></div>
+        </div>
+    </section>
+    
+    <section class="container mt-4">
+        <h2 id="category-title">Популярные товары</h2>
+        <div class="row" id="product-list">
+            <div class="col-md-3" data-category="Оружие">
+                <div class="card">
+                    <img src="./vendor/tovar1.jpg" class="card-img-top" alt="Охотничье ружье">
+                    <div class="card-body">
+                        <h5 class="card-title">Охотничье ружье</h5>
+                        <p class="card-text">Отличное оружие для охоты.</p>
+                        <a href="product.html?id=1" class="btn btn-success w-100">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" data-category="Обувь">
+                <div class="card">
+                    <img src="./vendor/tovar2.jpg" class="card-img-top" alt="Ботинки">
+                    <div class="card-body">
+                        <h5 class="card-title">Ботинки</h5>
+                        <p class="card-text">Прочные ботинки для походов.</p>
+                        <a href="product.html?id=2" class="btn btn-success w-100">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" data-category="Одежда">
+                <div class="card">
+                    <img src="./vendor/tovar3.jpg" class="card-img-top" alt="Комбинезон">
+                    <div class="card-body">
+                        <h5 class="card-title">Комбинезон</h5>
+                        <p class="card-text">Удобный охотничий комбинезон.</p>
+                        <a href="product.html?id=3" class="btn btn-success w-100">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" data-category="Электроника">
+                <div class="card">
+                    <img src="./vendor/tovar4.jpg" class="card-img-top" alt="Набор раций">
+                    <div class="card-body">
+                        <h5 class="card-title">Набор раций</h5>
+                        <p class="card-text">Набор раций для связи на охоте.</p>
+                        <a href="product.html?id=4" class="btn btn-success w-100">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function filterCategory(category) {
+            document.getElementById('category-title').innerText = category;
+            const products = document.querySelectorAll('#product-list .col-md-3');
+            products.forEach(product => {
+                product.style.display = product.getAttribute('data-category') === category ? 'block' : 'none';
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                filterCategory(category);
+            }
+        });
+    </script>
+
+    <footer class="bg-dark text-white text-center p-3 mt-4">
+        <p>© 2025 Hunting Store. Все права защищены.</p>
+    </footer>
+</body>
+</html>
