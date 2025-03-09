@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" 
+    crossorigin="anonymous" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+    crossorigin="anonymous" async></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
+
+    <link href="./styles/indexStyle.css" rel="stylesheet" crossorigin="anonymous">
+    <title>Hunting Store</title>
+</head>
+<body>  
+    <header>
+        <div class="logo">Hunting Store</div>
+        <nav>
+            <ul>
+                <button class="auth-button"><li><a href="#">Каталог</a></li></button>
+                <li><button class="auth-button" onclick="openAuthModal()"><span class="a">Регистрация/Авторизация</span></button></li>
+                <button class="auth-button"><li><a href="#">Корзина</a></li></button>
+                <button class="auth-button"><li><a href="profile.html">Личный кабинет</a></li></button>
+                <button class="auth-button"><li><a href="#">О магазине</a></li></button>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="banner">
+        <h1>Лучшие товары для охоты</h1>
+        <p>Скидки до 50% на снаряжение</p>
+        <button>Купить сейчас</button>
+    </section>
+    
+    <section class="categories">
+        <h2>Категории товаров</h2>
+        <div class="category-list">
+            <div class="category">Оружие</div>
+            <div class="category">Одежда</div>
+            <div class="category">Обувь</div>
+            <div class="category">Электроника</div>
+        </div>
+    </section>
+    
+    <section class="popular-products">
+        <h2>Популярные товары</h2>
+        <div class="product-list">
+            <div class="product-card">
+                <img src="./vendor/tovar1.jpg" alt="Товар 1">
+                <h3>Охотничье ружье</h3>
+                <p>Описание товара</p>
+                <button>Купить</button>
+            </div>
+            <div class="product-card">
+                <img src="./vendor/tovar2.jpg" alt="Товар 2">
+                <h3>Ботинки</h3>
+                <p>Описание товара</p>
+                <button>Купить</button>
+            </div>
+            <div class="product-card">
+                <img src="./vendor/tovar3.jpg" alt="Товар 3">
+                <h3>Комбинезон</h3>
+                <p>Комбинезон</p>
+                <button>Купить</button>
+            </div>
+            <div class="product-card">
+                <img src="./vendor/tovar4.jpg" alt="Товар 4">
+                <h3>Набор раций</h3>
+                <p>Набор раций</p>
+                <button>Купить</button>
+            </div>
+        </div>
+    </section>
+    
+    <div class="overlay" id="overlay" onclick="closeAuthModal()"></div>
+    
+    <div class="auth-modal" id="authModal">
+        <h2>Вход</h2>
+        <input type="text" placeholder="Email">
+        <input type="password" placeholder="Пароль">
+        <button>Войти</button>
+        <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+    </div>
+    
+    <script>
+        function openAuthModal() {
+            document.getElementById('authModal').innerHTML = `
+                <h2>Вход</h2>
+                <input type="text" placeholder="Email">
+                <input type="password" placeholder="Пароль">
+                <button>Войти</button>
+                <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+            `;
+            document.getElementById('authModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+    
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    
+        function showRegister() {
+            document.getElementById('authModal').innerHTML = `
+                <h2>Регистрация</h2>
+                <input type="text" placeholder="Имя">
+                <input type="text" placeholder="Email">
+                <input type="password" placeholder="Пароль">
+                <button>Зарегистрироваться</button>
+                <p>Уже есть аккаунт? <a href="#" onclick="openAuthModal()">Войти</a></p>
+            `;
+        }
+    </script>
+
+    <footer>
+        <p>© 2025 Hunting Store. Все права защищены.</p>
+        <p>Контакты: +7 900 123-45-67</p>
+    </footer>
+</body>
+</html>
