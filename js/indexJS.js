@@ -1,8 +1,3 @@
-function closeFormContainer() {
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('overlay_pop-up').style.display = 'none';
-}
-
 function openFormContainer() {
     document.getElementById('form-container').style.display = 'flex';
     document.getElementById('overlay_pop-up').style.display = 'block';
@@ -61,6 +56,11 @@ function openFormContainer() {
     });
 }
 
+function closeFormContainer() {
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('overlay_pop-up').style.display = 'none';
+}
+
 function openAuthPhone() {
     document.getElementById('form-container').innerHTML = `
         <div class="form-header">
@@ -71,9 +71,11 @@ function openAuthPhone() {
         </div>
         <div class="form-main">
             <form id="auth_form" class="auth_container" method="post">
-                <input type="tel" class="authPhone" id="authPhone" name="authPhone" placeholder="+7(___)___-__-__" required maxlength="18" />
+                <input type="tel" class="authPhone" id="authPhone" name="authPhone" 
+                placeholder="+7(___)___-__-__" required maxlength="18" />
 
-                <input type="password" class="authPassword" id="authPassword" name="authPassword" placeholder="Пароль" required minlength="8" />
+                <input type="password" class="authPassword" id="authPassword" 
+                name="authPassword" placeholder="Пароль" required minlength="8" />
 
                 <div class="auth-actions">
                     <button id="authButton" class="authBtnPhone" type="submit">Получить код</button>
@@ -89,6 +91,117 @@ function openAuthPhone() {
     `;
 
     const phoneInput = document.getElementById("authPhone");
+
+    if (!phoneInput) return;
+
+    phoneInput.addEventListener("input", function (e) {
+        let value = phoneInput.value.replace(/\D/g, "");
+
+        if (e.inputType === "deleteContentBackward" && value.length <= 1) {
+            phoneInput.value = "+7 (";
+            return;
+        }
+
+        if (value.startsWith("8")) {
+            value = "7" + value.slice(1);
+        }
+
+        let formatted = "+7";
+        if (value.length > 1) formatted += " (" + value.substring(1, 4);
+        if (value.length >= 4) formatted += ") " + value.substring(4, 7);
+        if (value.length >= 7) formatted += "-" + value.substring(7, 9);
+        if (value.length >= 9) formatted += "-" + value.substring(9, 11);
+
+        phoneInput.value = formatted;
+
+        phoneInput.style.border = value.length === 11 ? "2px solid green" : "2px solid red";
+    });
+
+    phoneInput.value = "+7 (";
+
+
+    const passwordInput = document.getElementById("authPassword");
+
+    if (!passwordInput) return;
+
+    const errorMessage = document.createElement("div");
+    errorMessage.style.color = "red";
+    errorMessage.style.fontSize = "15px";
+    errorMessage.style.marginTop = "5px";
+    errorMessage.style.display = "none";
+    passwordInput.insertAdjacentElement("afterend", errorMessage);
+
+    passwordInput.addEventListener("input", function () {
+        const password = passwordInput.value;
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+        if (!passwordRegex.test(password)) {
+            passwordInput.style.border = "2px solid red";
+            errorMessage.textContent = "Пароль должен содержать минимум 8 латинских символов, одну заглавную букву, цифру и спецсимвол.";
+            errorMessage.style.display = "block";
+        } else {
+            passwordInput.style.border = "2px solid green";
+            errorMessage.style.display = "none";
+        }
+    });
+}
+
+function showRegister() {
+    document.getElementById('form-container').innerHTML = `
+        <div class="form-header">
+            <div class="title-header">
+                <span class="register-span">Регистрация</span>
+            </div>
+            <a href="#" class="cross-form-close" onclick="closeFormContainer()"></a>
+        </div>
+        <div class="form-main">
+            <form id="register_form" class="register_container" method="post">
+                <input type="text" class="registerName" id="registerName" name="registerName" 
+                placeholder="Имя" required />
+
+                <input type="text" class="registerSurname" id="registerSurname" name="registerSurname" 
+                placeholder="Фамилия" required />
+
+                <input type="tel" class="registerPhone" id="registerPhone" name="registerPhone" 
+                placeholder="+7(___)___-__-__" required maxlength="18" />
+
+                <input type="email" class="registerEmail" id="registerEmail" name="registerEmail" 
+                placeholder="Адрес электронной почты" required minlength="8" maxlength="70" />
+
+                <input type="password" class="registerPassword" id="registerPassword" name="registerPassword" 
+                placeholder="Пароль" required minlength="8" />
+
+                <input type="password" class="registerCheckPassword" id="registerCheckPassword" name="registerCheckPassword" 
+                placeholder="Повторить пароль" required minlength="8" />
+
+                <div class="auth-actions">
+                    <button id="authButton" class="registerBtn" type="submit">Зарегистрироваться</button>
+                    <div class="auth-links">
+                        <a href="#" class="auth-number" onclick="openFormContainer()">Войти</a>
+                        <a href="#" class="remind-password">Забыли пароль?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-footer">
+            <label class="custom-checkbox">
+                <input type="checkbox" id="agreeCheckbox" />
+                <span class="checkmark"></span>
+                Даю согласие на обработку&nbsp<a href="#" class="href_to_personal_data">персональных данных</a>
+            </label>
+        </div>
+    `;
+
+    document.querySelector("#registerName").addEventListener("input", function () {
+        this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё]/g, '');
+    });
+
+    document.querySelector("#registerSurname").addEventListener("input", function () {
+        this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё]/g, '');
+    });
+
+    const phoneInput = document.getElementById("registerPhone");
 
     if (!phoneInput) return;
 
@@ -123,50 +236,51 @@ function openAuthPhone() {
     phoneInput.value = "+7 (";
 
 
-    const passwordInput = document.getElementById("authPassword");
+    const passwordInput = document.getElementById("registerPassword");
+    const confirmPasswordInput = document.getElementById("registerCheckPassword");
 
-    if (!passwordInput) return;
+    if (!passwordInput || !confirmPasswordInput) return;
 
-    const errorMessage = document.createElement("div");
-    errorMessage.style.color = "red";
-    errorMessage.style.fontSize = "15px";
-    errorMessage.style.marginTop = "5px";
-    errorMessage.style.display = "none";
-    passwordInput.insertAdjacentElement("afterend", errorMessage);
+    // Создаём div для ошибок
+    const passwordError = document.createElement("div");
+    const confirmError = document.createElement("div");
 
-    passwordInput.addEventListener("input", function () {
+    [passwordError, confirmError].forEach(error => {
+        error.style.color = "red";
+        error.style.fontSize = "12px";
+        error.style.marginTop = "5px";
+        error.style.display = "none"; // Скрыто по умолчанию
+    });
+
+    passwordInput.insertAdjacentElement("afterend", passwordError);
+    confirmPasswordInput.insertAdjacentElement("afterend", confirmError);
+
+    function validatePassword() {
         const password = passwordInput.value;
-
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
         if (!passwordRegex.test(password)) {
             passwordInput.style.border = "2px solid red";
-            errorMessage.textContent = "Пароль должен содержать минимум 8 латинских символов, одну заглавную букву, цифру и спецсимвол.";
-            errorMessage.style.display = "block";
+            passwordError.textContent = "Пароль: минимум 8 символов, одна заглавная буква, цифра и спецсимвол.";
+            passwordError.style.display = "block";
         } else {
             passwordInput.style.border = "2px solid green";
-            errorMessage.style.display = "none";
+            passwordError.style.display = "none";
         }
-    });
-}
+        validateConfirmPassword(); // Проверяем второй input после изменения пароля
+    }
 
-function showRegister() {
-    document.getElementById('form-container').innerHTML = `
-        <h2>Регистрация</h2>
-        <input type="text" class="registerName" id="registerName" name="registerName"
-        placeholder="Никнейм" required />
+    function validateConfirmPassword() {
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            confirmPasswordInput.style.border = "2px solid red";
+            confirmError.textContent = "Пароли не совпадают!";
+            confirmError.style.display = "block";
+        } else {
+            confirmPasswordInput.style.border = "2px solid green";
+            confirmError.style.display = "none";
+        }
+    }
 
-        <input type="email" class="registerEmail" id="registerEmail" name="registerEmail" 
-        placeholder="E-mail" required minlength="8" maxlength="70" />
-
-        <input type="password" class="registerPassword" id="registerPassword" name="registerPassword" 
-        placeholder="Пароль" required minlength="8" />
-
-        <button id="registerButton" type="submit">Зарегистрироваться</button>
-        <p>Уже есть аккаунт? <a href="#" onclick="openFormContainer()">Войти</a></p>
-    `;
-
-    document.querySelector("#registerName").addEventListener("input", function () {
-        this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё]/g, '');
-    });
+    passwordInput.addEventListener("input", validatePassword);
+    confirmPasswordInput.addEventListener("input", validateConfirmPassword);
 }
