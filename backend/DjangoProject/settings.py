@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-obeviwkw$o3u#1(_jkxa^@98t40ecpz#!*i5m5co_2utj(j8jg
 DEBUG = True
 
 import os
-ALLOWED_HOSTS = ["DjangoProject.onrender.com"]
+ALLOWED_HOSTS = ["check-j52a.onrender.com"]
 
 
 # Application definition
