@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
 
 
 # Менеджер пользователей
@@ -18,13 +18,28 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# Таблица Users (Пользователи)
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("The Email field must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        return self.create_user(email, password, **extra_fields)
 class User(AbstractBaseUser):
     email = models.EmailField(unique=True, null=False)
-    password_hash = models.CharField(max_length=255, null=False)
-    name = models.CharField(max_length=100, null=False)
+    password = models.CharField(max_length=255, null=False)
+    username = models.CharField(max_length=100, unique=True, null=False)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    address = models.JSONField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     is_active = models.BooleanField(default=True)
@@ -33,10 +48,13 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = ['username', 'name']
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        db_table = 'users'  # Указание имени таблицы вручную
 
 
 # Таблица Roles (Роли)
