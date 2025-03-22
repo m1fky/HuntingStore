@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'DjangoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': r'C:\Users\denda\PycharmProjects\HuntingStore3\initDB\data\database.db',
+        'NAME': os.path.join(BASE_DIR, '..', 'initDB', 'data', 'database.db'),
     }
 }
 
