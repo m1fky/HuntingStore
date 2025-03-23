@@ -1,5 +1,6 @@
 # Object file
 *.o
 env
+.idea
 # Ada Library Information
 *.ali
