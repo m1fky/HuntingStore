@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome to main!{%endblock%}
+
+{% block content %}
+<div class="form-header">
+            <div class="title-header">
+                <span class="register-span">Регистрация</span>
+            </div>
+            <a href="#" class="cross-form-close" onclick="closeFormContainer()"></a>
+        </div>
+        <div class="form-main">
+            <form id="register_form" class="register_container" method="post" action=".">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <input type="text" class="registerName" id="registerName" name="first_name"
+                placeholder="Имя" required />
+
+                <input type="text" class="registerSurname" id="registerSurname" name="last_name"
+                placeholder="Фамилия" required />
+
+                <input type="text" class="registerUsername" id="registerUsername" name="username"
+                placeholder="Никнейм" required />
+
+                <input type="email" class="registerEmail" id="registerEmail" name="email"
+                placeholder="Адрес электронной почты" required minlength="8" maxlength="70" />
+
+                <input type="password" class="registerPassword" id="registerPassword" name="password1"
+                placeholder="Пароль" required minlength="8" />
+
+                <input type="password" class="registerCheckPassword" id="registerCheckPassword" name="password2"
+                placeholder="Повторить пароль" required minlength="8" />
+
+                <div class="auth-actions">
+                    <button id="authButton" class="registerBtn" type="submit">Зарегистрироваться</button>
+                    <div class="auth-links">
+                        <a href="#" class="auth-number" onclick="openFormContainer()">Войти</a>
+                        <a href="#" class="remind-password">Забыли пароль?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-footer">
+            <label class="custom-checkbox">
+                <input type="checkbox" id="agreeCheckbox" />
+                <span class="checkmark"></span>
+                Даю согласие на обработку&nbsp<a href="#" class="href_to_personal_data">персональных данных</a>
+            </label>
+        </div>
+{% endblock %}

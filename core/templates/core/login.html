@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome to main!{%endblock%}
+
+{% block content %}
+    <div class="form-header">
+            <div class="title-header">
+                <span class="login-span">Вход</span>
+            </div>
+            <a href="#" class="cross-form-close" onclick="closeFormContainer()"></a>
+        </div>
+        <div class="form-main">
+            <form id="auth_form" class="auth_container" method="post">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <input type="text" class="registerUsername" id="registerUsername" name="username"
+                placeholder="Никнейм" required />
+
+                <input type="password" class="authPassword" id="authPassword" name="password"
+                placeholder="Пароль" required minlength="8" />
+
+                <div class="auth-actions">
+                    <button id="authButton" class="authBtnEmail" type="submit">Войти</button>
+                    <div class="auth-links">
+                        <a href="#" class="auth-number" onclick="openAuthPhone()">Войти по номеру телефона</a>
+                        <a href="#" class="remind-password">Забыли пароль?</a>
+                        <a href="#" class="register-href" onclick="showRegister()">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <div class="form-footer"></div>
+{% endblock %}

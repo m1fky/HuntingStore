@@ -156,23 +156,28 @@ function showRegister() {
             <a href="#" class="cross-form-close" onclick="closeFormContainer()"></a>
         </div>
         <div class="form-main">
-            <form id="register_form" class="register_container" method="post">
-                <input type="text" class="registerName" id="registerName" name="registerName" 
+            <form id="register_form" class="register_container" method="post" action=".">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {{ form.username }}
+
+                <input type="text" class="registerName" id="registerName" name="first_name"
                 placeholder="Имя" required />
 
-                <input type="text" class="registerSurname" id="registerSurname" name="registerSurname" 
+                <input type="text" class="registerSurname" id="registerSurname" name="last_name"
                 placeholder="Фамилия" required />
 
-                <input type="tel" class="registerPhone" id="registerPhone" name="registerPhone" 
-                placeholder="+7(___)___-__-__" required maxlength="18" />
 
-                <input type="email" class="registerEmail" id="registerEmail" name="registerEmail" 
+
+                <input type="email" class="registerEmail" id="registerEmail" name="email"
                 placeholder="Адрес электронной почты" required minlength="8" maxlength="70" />
 
-                <input type="password" class="registerPassword" id="registerPassword" name="registerPassword" 
+                <input type="password" class="registerPassword" id="registerPassword" name="password1"
                 placeholder="Пароль" required minlength="8" />
 
-                <input type="password" class="registerCheckPassword" id="registerCheckPassword" name="registerCheckPassword" 
+                <input type="password" class="registerCheckPassword" id="registerCheckPassword" name="password2"
                 placeholder="Повторить пароль" required minlength="8" />
 
                 <div class="auth-actions">
