@@ -1,6 +1,6 @@
 <!doctype html>
 {% load static %}
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,16 +22,16 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}" />
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16x16.png' %}" sizes="16x16" />
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32x32.png' %}" sizes="32x32" />
-    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Главная{% endblock %}</title>
 </head>
 <body>
 <header>
         <div class="logo_div">
             <a href="./index.html" class="logo_href">
                 <div class="logo_href">
-                    <img class="img_logo" src="{% static 'vendor/Магазин_лого.png'" alt="Hunting Store" title="Hunting Store">
+                    <img class="img_logo" src="{% static 'vendor/Магазин_лого.png' %}" alt="Hunting Store" title="Hunting Store">
                     <span class="name_logo">Hunting Store</span>
                 </div>
             </a>
@@ -44,17 +44,15 @@
                     <button class="auth-button"><li><a href="pages/cart.html">Корзина</a></li></button>
                     <button class="auth-button"><li><a href="pages/profile.html">Личный кабинет</a></li></button>
                 {% else %}
-                    <button class="auth-button" onclick="openFormContainer()"><li><a href="{% url 'core:signup' %}" class="a">Регистрация</a></li></button>
-                    <button class="auth-button" onclick="openFormContainer()"><li><a href="{% url 'core:login' %}" class="a">Вход</a></li></button>
+                    <button class="auth-button"><li><a href="{% url 'core:signup' %}" class="a">Регистрация</a></li></button>
+                    <button class="auth-button"><li><a href="{% url 'core:login' %}" class="a">Вход</a></li></button>
                 {% endif %}
                 <button class="auth-button"><li><a href="pages/about.html">О магазине</a></li></button>
             </ul>
         </nav>
     </header>
-    <div class="content">
         {% block content %}
         {% endblock %}
-    </div>
     <footer>
         <p>© 2025 Hunting Store. Все права защищены.</p>
         <p>Контакты: +7 900 123-45-67</p>

@@ -1,8 +1,10 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Welcome to main!{%endblock%}
+{% block title %}Главная{%endblock%}
 
 {% block content %}
+
+{% load static %}
     <main class="main-flex-div">
         <section class="banner">
             <h1>Лучшие товары для охоты</h1>
@@ -24,33 +26,30 @@
             <h2>Популярные товары</h2>
             <div class="product-list">
                 <div class="product-card">
-                    <img src="vendor/tovar1.jpg" alt="Товар 1">
+                    <img src="{% static 'vendor/tovar1.jpg' %}" alt="Товар 1">
                     <h3>Охотничье ружье</h3>
                     <p>Описание оружия</p>
                     <button class="buy-btn">Купить</button>
                 </div>
                 <div class="product-card">
-                    <img src="vendor/tovar2.jpg" alt="Товар 2">
+                    <img src="{% static 'vendor/tovar2.jpg' %}" alt="Товар 2">
                     <h3>Ботинки</h3>
                     <p>Описание ботинок</p>
                     <button class="buy-btn">Купить</button>
                 </div>
                 <div class="product-card">
-                    <img src="vendor/tovar3.jpg" alt="Товар 3">
+                    <img src="{% static 'vendor/tovar3.jpg' %}" alt="Товар 3">
                     <h3>Комбинезон</h3>
                     <p>Описание комбинезона</p>
                     <button class="buy-btn">Купить</button>
                 </div>
                 <div class="product-card">
-                    <img src="vendor/tovar4.jpg" alt="Товар 4">
+                    <img src="{% static 'vendor/tovar4.jpg' %}" alt="Товар 4">
                     <h3>Набор раций</h3>
                     <p>Описание набора раций</p>
                     <button class="buy-btn">Купить</button>
                 </div>
             </div>
         </section>
-
-        <div class="form-overlay" id="overlay_pop-up" onclick="closeFormContainer()"></div>
-        <div id="form-container" class="form-container"></div>
     </main>
 {% endblock %}
