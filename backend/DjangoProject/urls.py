@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from shop.views import HealthCheckView, UserRegistrationView, LoginView, LogoutView
+from shop.views import HealthCheckView, UserRegistrationView, LogoutView, LoginByEmailView, LoginByPhoneView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', HealthCheckView.as_view(), name='health-check'),
     path("register/", UserRegistrationView.as_view(), name="register"),
-    path('login/', LoginView.as_view(), name='login'),
+    path("login/email/", LoginByEmailView.as_view(), name="login-email"),
+    path("login/phone/", LoginByPhoneView.as_view(), name="login-phone"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
