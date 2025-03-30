@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
-from .serializers import  LoginSerializer, UserRegistrationSerializer
+from .serializers import  UserRegistrationSerializer, LoginByEmailSerializer, LoginByPhoneSerializer
 
 
 class HealthCheckView(APIView):
@@ -24,9 +24,12 @@ class UserRegistrationView(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-class LoginView(APIView):
+
+
+
+class LoginByEmailView(APIView):
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
+        serializer = LoginByEmailSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data["user"]
             refresh = RefreshToken.for_user(user)
@@ -34,7 +37,32 @@ class LoginView(APIView):
                 {
                     "access": str(refresh.access_token),
                     "refresh": str(refresh),
-                    "user": {"email": user.email, "username": user.username},
+                    "user": {
+                        "email": user.email,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name
+                    },
+                },
+                status=status.HTTP_200_OK,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginByPhoneView(APIView):
+    def post(self, request):
+        serializer = LoginByPhoneSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data["user"]
+            refresh = RefreshToken.for_user(user)
+            return Response(
+                {
+                    "access": str(refresh.access_token),
+                    "refresh": str(refresh),
+                    "user": {
+                        "phone": user.phone,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name
+                    },
                 },
                 status=status.HTTP_200_OK,
             )
@@ -50,10 +78,3 @@ class LogoutView(APIView):
             return Response({"message": "Logout is successful"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-class ProfileView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = LoginSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
