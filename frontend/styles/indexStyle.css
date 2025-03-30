@@ -58,8 +58,10 @@ nav ul li a, .a{
     transition: color 0.3s;
 }
 
-nav ul li a:hover, .a:hover {
-    color: #f39c12;
+.auth-button:hover {
+    a, .a {
+        color: #f39c12;
+    }
 }
 
 .main-flex-div{
@@ -283,10 +285,18 @@ form>input {
     background-color: #f39c12;
 }
 
-#authButton:hover{
+#authButton:hover {
     background-color: #ffab25;
     transition: background-color .3s;
     cursor: pointer;
+}
+
+#authButton:disabled {
+    background-color: #b5b5b5;
+}
+
+#authButton:disabled:hover {
+    cursor: not-allowed;
 }
 
 .auth-links {

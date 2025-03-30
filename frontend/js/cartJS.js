@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
+
     let cart = [
         { name: "Охотничье оружие", price: 12500, image: "../vendor/tovar1.jpg", quantity: 1 },
         { name: "Ботинки", price: 5800, image: "../vendor/tovar2.jpg", quantity: 1 },
@@ -119,3 +120,16 @@ document.addEventListener("DOMContentLoaded", function() {
         orderSuccess.classList.remove("hidden");
     });
 });
+
+function logout() {
+    Cookies.remove("accessToken", { path: "/" });
+    Cookies.remove("refreshToken", { path: "/" });
+
+    // Обновление интерфейса
+    document.getElementById("auth-button").style.display = "block";
+    document.getElementById("logout-button").style.display = "none";
+
+    window.location.href = "../index.html";
+}
+
+document.getElementById("logout-button").addEventListener("click", logout);

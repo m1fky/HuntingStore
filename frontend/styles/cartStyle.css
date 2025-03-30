@@ -67,8 +67,10 @@ nav ul li a, .a{
     transition: color 0.3s;
 }
 
-nav ul li a:hover, .a:hover {
-    color: #f39c12;
+.auth-button:hover {
+    a, .a {
+        color: #f39c12;
+    }
 }
 
 .main-flex-div{
