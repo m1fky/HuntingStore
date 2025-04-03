@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from shop.views import HealthCheckView, UserRegistrationView, LogoutView, LoginByEmailView, LoginByPhoneView
+from shop.views import HealthCheckView, UserRegistrationView, LogoutView, LoginByEmailView, LoginByPhoneView, \
+    ProductListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path("login/phone/", LoginByPhoneView.as_view(), name="login-phone"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('products/', ProductListCreateView.as_view(), name='product-list-create'),
 ]

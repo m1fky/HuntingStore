@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from shop.models import User
+from shop.models import User, Product
 
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
@@ -68,3 +68,8 @@ class LoginByPhoneSerializer(serializers.Serializer):
             raise serializers.ValidationError("Account is not active")
 
         return {"user": user}
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
+        read_only_fields = ('id', 'created_at')
