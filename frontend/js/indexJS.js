@@ -384,7 +384,7 @@ function register_to_login() {
     
             if (response.ok) {
                 alert("Регистрация успешна! Теперь войдите в аккаунт.");
-                window.location.href = "../index.html";
+                window.location.href = "/frontend/index.html";
                 openFormContainer();
             } else {
                 alert(`Ошибка регистрации: ${data.message || "Попробуйте снова."}`);
@@ -422,7 +422,7 @@ function login_cookie() {
                     { secure: true, sameSite: 'Strict', expires: 7 }); // 7 дней
 
                 alert("Вход выполнен успешно!");
-                window.location.href = "../pages/profile.html";
+                window.location.href = "/frontend/pages/profile.html";
                 
             } else {
                 alert(`Ошибка входа: ${data.message || "Неверные данные."}`);
@@ -438,9 +438,7 @@ function lk_and_cart_check() {
     if (!Cookies.get("accessToken")) {
         alert("Пожалуйтса, войдите в аккаунт");
 
-        document.querySelector(".cookie-required").addEventListener("click", function(event) {
-            event.preventDefault();
-        });
+        document.querySelector(".cookie-required").setAttribute("href", "");
     }
 }
 
@@ -451,7 +449,7 @@ function logout() {
     document.getElementById("auth-button").style.display = "block";
     document.getElementById("logout-button").style.display = "none";
 
-    window.location.href = "../index.html";
+    window.location.href = "/frontend/index.html";
 }
 
 document.getElementById("logout-button").addEventListener("click", logout);

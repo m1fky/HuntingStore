@@ -31,8 +31,8 @@
             <ul>
                 <button class="auth-button"><li><a href="./index.html">Каталог</a></li></button>
                 <button id="auth-button" class="auth-button" onclick="openFormContainer()"><li><span class="a">Регистрация/Авторизация</span></li></button>
-                <button class="auth-button cookie-required" onclick="lk_and_cart_check()"><li><a href="./pages/cart.html">Корзина</a></li></button>
-                <button class="auth-button cookie-required" onclick="lk_and_cart_check()"><li><a href="./pages/profile.html">Личный кабинет</a></li></button>
+                <button class="auth-button" onclick="lk_and_cart_check()"><li><a class="cookie-required" href="./pages/cart.html">Корзина</a></li></button>
+                <button class="auth-button" onclick="lk_and_cart_check()"><li><a class="cookie-required" href="./pages/profile.html">Личный кабинет</a></li></button>
                 <button id="logout-button" class="auth-button" style="display: none;"><li><a href="">Выйти</a></li></button>
                 <button class="auth-button"><li><a href="./pages/about.html">О магазине</a></li></button>
             </ul>
@@ -48,10 +48,10 @@
         <section class="categories">
             <h2>Категории товаров</h2>
             <div class="category-list">
-                <div class="category">Оружие</div>
-                <div class="category">Одежда</div>
-                <div class="category">Обувь</div>
-                <div class="category">Электроника</div>
+                <div class="category" data-url="pages/gunsCatalog.html">Оружие</div>
+                <div class="category" data-url="pages/clothCatalog.html">Одежда</div>
+                <div class="category" data-url="pages/shoesCatalog.html">Обувь</div>
+                <div class="category" data-url="pages/electCatalog.html">Электроника</div>
             </div>
         </section>
         
@@ -92,7 +92,20 @@
         <p>© 2025 Hunting Store. Все права защищены.</p>
         <p>Контакты: +7 900 123-45-67</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3/dist/js.cookie.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".category").forEach(category => {
+                category.addEventListener("click", function () {
+                    const url = this.getAttribute("data-url");
+                    if (url) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
     <script src="./js/indexJS.js" defer></script>
 </body>
 </html>

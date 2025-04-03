@@ -28,10 +28,6 @@ function showTab(tab) {
     event.target.classList.add('active');
 }
 
-function saveChanges() {
-    alert("Данные сохранены!");
-}
-
 function goToCatalog() {
     window.location.href = "../index.html"; // Замените на актуальную ссылку каталога
 }
@@ -47,3 +43,52 @@ function logout() {
     window.location.href = "../index.html";
 }
 document.getElementById("logout-button").addEventListener("click", logout);
+
+function validateInput() {
+    let name = document.getElementById("registerName");
+    let surname = document.getElementById("registerSurname");
+    let email = document.getElementById("registerEmail");
+    let phone = document.getElementById("registerPhone");
+
+    let nameError = document.getElementById("nameError");
+    let surnameError = document.getElementById("surnameError");
+    let emailError = document.getElementById("emailError");
+    let phoneError = document.getElementById("phoneError");
+
+    let namePattern = /^[A-Za-zА-Яа-яЁё]+$/;
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern = /^\+?[0-9\s\-()]+$/;
+
+    let isValid = true;
+
+    // Очистка старых ошибок
+    nameError.textContent = "";
+    surnameError.textContent = "";
+    emailError.textContent = "";
+    phoneError.textContent = "";
+
+    if (!namePattern.test(name.value)) {
+        nameError.textContent = "Имя должно содержать только буквы!";
+        isValid = false;
+    }
+    if (!namePattern.test(surname.value)) {
+        surnameError.textContent = "Фамилия должна содержать только буквы!";
+        isValid = false;
+    }
+    if (!emailPattern.test(email.value)) {
+        emailError.textContent = "Введите корректный email!";
+        isValid = false;
+    }
+    if (!phonePattern.test(phone.value)) {
+        phoneError.textContent = "Введите корректный номер телефона!";
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function saveChanges() {
+    if (validateInput()) {
+        console.log("Данные успешно сохранены!");
+    }
+}

@@ -133,6 +133,13 @@ input {
     border-radius: 5px;
 }
 
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+}
+
 .saveBtn, .to_catalog_btn {
     background: #F39C12;
     color: white;

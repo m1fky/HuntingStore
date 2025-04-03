@@ -52,22 +52,27 @@
                 <div class="form-group">
                     <label for="registerName">Имя</label>
                     <input type="text" id="registerName" placeholder="Иван">
+                    <span class="error-message" id="nameError"></span>
                 </div>
                 <div class="form-group">
                     <label for="registerSurname">Фамилия</label>
                     <input type="text" id="registerSurname" placeholder="Иванов">
+                    <span class="error-message" id="surnameError"></span>
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
                     <input type="email" id="registerEmail" placeholder="ivan@example.com">
+                    <span class="error-message" id="emailError"></span>
                 </div>
                 <div class="form-group">
                     <label for="registerPhone">Телефон</label>
                     <input type="text" id="registerPhone" placeholder="+7 900 123-45-67">
+                    <span class="error-message" id="phoneError"></span>
                 </div>
                 <div class="form-group">
                     <label for="address">Адрес</label>
                     <input type="text" id="address" placeholder="Москва, ул. Ленина, 1">
+                    <span class="error-message" id="addressError"></span>
                 </div>
                 <button class="saveBtn" onclick="saveChanges()">Сохранить изменения</button>
             </div>
