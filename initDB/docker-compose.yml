@@ -1,0 +1,9 @@
+services:
+  sqlite:
+    image: keinos/sqlite3
+    container_name: sqlite_db
+    volumes:
+      - ./data:/data
+    working_dir: /data
+    command: ["sh", "-c", "sqlite3 /data/database.db < /data/init.sql && tail -f /dev/null"]
+    restart: unless-stopped
